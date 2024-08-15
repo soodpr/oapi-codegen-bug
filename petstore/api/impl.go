@@ -19,7 +19,7 @@ func NewServer() Server {
 // (POST /pets:validate)
 func (s Server) ValidatePets(ctx echo.Context) error {
 	var petnames PetNames
-	var pets []*Pet
+	var pets []Pet
 	fmt.Printf("Calling ValidatePets....")
 	err := ctx.Bind(&petnames)
 	if err != nil {
@@ -29,7 +29,7 @@ func (s Server) ValidatePets(ctx echo.Context) error {
 		pet := Pet{
 			Name: petnames.Names[i],
 		}
-		pets = append(pets, &pet)
+		pets = append(pets, pet)
 	}
 
 	fmt.Printf("%+v", pets[0])
@@ -40,7 +40,7 @@ func (s Server) ValidatePets(ctx echo.Context) error {
 // (POST /pets:generate)
 func (s Server) GeneratePets(ctx echo.Context) error {
 	var petnames PetNames
-	var pets []*Pet
+	var pets []Pet
 	fmt.Printf("Calling GeneratePets....")
 	err := ctx.Bind(&petnames)
 	if err != nil {
@@ -50,12 +50,11 @@ func (s Server) GeneratePets(ctx echo.Context) error {
 		pet := Pet{
 			Name: petnames.Names[i],
 		}
-		pets = append(pets, &pet)
+		pets = append(pets, pet)
 	}
 
-	//fmt.Printf("%+v", pets[0])
 	fmt.Printf("%+v", pets[1])
-	return ctx.JSON(http.StatusOK, pets)
+	return ctx.JSON(http.StatusOK, &pets)
 }
 
 func sendPetStoreError(ctx echo.Context, code int, message string) error {

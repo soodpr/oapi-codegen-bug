@@ -21,26 +21,26 @@ func main() {
 		}
 		petNames := api.PetNames{Names: []string{"dog", "cat"}}
 
-		resp, err := c.ValidatePets(context.TODO(), petNames)
+		resp, err := c.ValidatePetsWithResponse(context.TODO(), petNames)
 		if err != nil {
 			log.Fatal(err)
 		}
-		if resp.StatusCode != http.StatusOK {
-			log.Fatalf("Expected HTTP 200 but received %d", resp.StatusCode)
+		if resp.HTTPResponse.StatusCode != http.StatusOK {
+			log.Fatalf("Expected HTTP 200 but received %d", resp.HTTPResponse.StatusCode)
 		}
 
-		fmt.Printf("resp.JSON200: %v\n", resp.StatusCode)
+		fmt.Printf("resp.JSON200: %v\n", resp.JSON200)
 
 		petNames1 := api.PetNames{Names: []string{"pigeon", "Parrot"}}
-		resp1, err1 := c.GeneratePets(context.TODO(), petNames1)
+		resp1, err1 := c.GeneratePetsWithResponse(context.TODO(), petNames1)
 		if err1 != nil {
 			log.Fatal(err1)
 		}
-		if resp1.StatusCode != http.StatusOK {
-			log.Fatalf("Expected HTTP 200 but received %d", resp1.StatusCode)
+		if resp1.HTTPResponse.StatusCode != http.StatusOK {
+			log.Fatalf("Expected HTTP 200 but received %d", resp1.HTTPResponse.StatusCode)
 		}
 
-		fmt.Printf("resp.JSON200: %v\n", resp1.StatusCode)
+		fmt.Printf("resp.JSON200: %v\n", resp1.JSON200)
 	}
 
 }
